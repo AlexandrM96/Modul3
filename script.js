@@ -2,7 +2,8 @@ let currencyOne = document.querySelectorAll('#currencyOne'); //кнопки 'У 
 let currencyTwo = document.querySelectorAll('#currencyTwo'); //кнопки 'Хочу приобрести'
 let inputCurrencyOne = document.querySelector('#number__class__one'); // инпут 'У меня есть'  
 let inputCurrencyTwo = document.querySelector('#number__class__two'); // инпут 'Хочу приобрести'
-
+let parCorOne = document.querySelector('#currency__coursOne');// элемент, которыйнаходится ниже инпута 'У меня есть'
+let parCorTwo = document.querySelector('#currency__coursTwo');// элемент, которыйнаходится ниже инпута 'Хочу приобрести'
 let one = 'RUB';
 let two = 'USD';
 let sum = inputCurrencyOne.value = 1;
@@ -59,7 +60,19 @@ function converter() {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-     inputCurrencyTwo.value = data.result;
-    })        
+     inputCurrencyTwo.value = data.result.toFixed(4);
+    })
+    let urlTwo = `https://api.exchangerate.host/convert?from=${one}&to=${two}&amount=1`;
+    fetch(urlTwo)
+    .then(res => res.json())
+    .then(data => {
+        parCorOne.innerText = `1 ${one} = ${data.result.toFixed(4)} ${two}`;
+    })   
+    let urlThree = `https://api.exchangerate.host/convert?from=${two}&to=${one}&amount=1`;
+    fetch(urlThree)
+    .then(res => res.json())
+    .then(data => {
+        parCorTwo.innerText = `1 ${two} = ${data.result.toFixed(4)} ${one}`;
+    })       
 }
 converter();

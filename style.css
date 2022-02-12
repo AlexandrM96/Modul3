@@ -102,9 +102,27 @@ body {
     border-radius: 3px;
 }
 
-.currency__input .number__class {
-    width: 100%;
+.converter__section .article__content .container .currency__input {
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-top: 11px;
+    padding-left: 11px;
+}
+
+.converter__section .article__content .container .currency__input .currency__cours {
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    color: #C6C6C6;
+    padding-left: 3px;
+ }
+
+ .converter__section .article__content .container .currency__input .number__class {
+    width: 98%;
     border: 0px;
+    margin-bottom: 10px;
     font-weight: bold;
     font-size: 36px;
     line-height: 42px;
@@ -121,6 +139,7 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	display: none;
 }
+
 
 /* эффекты */
 .converter__section .article__content .container .currency__container .currency:hover {
