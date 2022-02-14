@@ -4,9 +4,19 @@ let inputCurrencyOne = document.querySelector('#number__class__one'); // инп�
 let inputCurrencyTwo = document.querySelector('#number__class__two'); // инпут 'Хочу приобрести'
 let parCorOne = document.querySelector('#currency__coursOne');// элемент, которыйнаходится ниже инпута 'У меня есть'
 let parCorTwo = document.querySelector('#currency__coursTwo');// элемент, которыйнаходится ниже инпута 'Хочу приобрести'
+let disp = document.querySelector('.wrapper'); //основной блок
+let error = document.querySelector('.error'); //блок ошибки
+let errorBut = document.querySelector('.button__err'); //кнопка ошибки
+
+function errorResult() {
+    location.reload(); // результат нажатия на кнопку 'перезагрузить'
+};
+
 let one = 'RUB';
 let two = 'USD';
 let sum = inputCurrencyOne.value = 1;
+let sumTwo = inputCurrencyTwo.value;
+let flag = true;
 
 currencyOne.forEach((currencyOne) => {  
     if(currencyOne.innerText == one) {     
@@ -52,27 +62,68 @@ function clickButtonCurrencyTwo(event) {
 
 function result () {
     sum = inputCurrencyOne.value;
+    sumTwo = inputCurrencyTwo.value;
     converter();
 }
 
-function converter() {
-    let url = `https://api.exchangerate.host/convert?from=${one}&to=${two}&amount=${sum}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
-     inputCurrencyTwo.value = data.result.toFixed(4);
-    })
-    let urlTwo = `https://api.exchangerate.host/convert?from=${one}&to=${two}&amount=1`;
+function converter() { //работа конвертера
+    let urlTwo = `https://api.exchangerate.host/convert?from=${one}&to=${two}&amount=1`;// постоянная конвертация 1 единицы
     fetch(urlTwo)
     .then(res => res.json())
     .then(data => {
         parCorOne.innerText = `1 ${one} = ${data.result.toFixed(4)} ${two}`;
     })   
-    let urlThree = `https://api.exchangerate.host/convert?from=${two}&to=${one}&amount=1`;
+    let urlThree = `https://api.exchangerate.host/convert?from=${two}&to=${one}&amount=1`;// постоянная конвертация 1 единицы
     fetch(urlThree)
     .then(res => res.json())
     .then(data => {
         parCorTwo.innerText = `1 ${two} = ${data.result.toFixed(4)} ${one}`;
-    })       
+    })   
+    if(flag == true && one == two) { //если валюты одинаковые, то выводится число, а конвертация не происходит
+        inputCurrencyTwo.value = inputCurrencyOne.value;
+        return;
+    }
+    if(flag == false && two == one) { //если валюты одинаковые, то выводится число, а конвертация не происходит
+        inputCurrencyOne.value = inputCurrencyTwo.value;
+        return;
+    }
+    if(flag == true) {
+        let url = `https://api.exchangerate.host/convert?from=${one}&to=${two}&amount=${sum}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+        inputCurrencyTwo.value = data.result.toFixed(4);
+        })
+        .catch((err) => {
+            disp.style.display = 'none';
+            error.style.display = 'block';
+            document.addEventListener('click', errorResult);
+   })
+    } if(flag == false) {
+        let url = `https://api.exchangerate.host/convert?from=${two}&to=${one}&amount=${sumTwo}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+         inputCurrencyOne.value = data.result.toFixed(4);
+        })
+        .catch((err) => {
+            disp.style.display = 'none';
+            error.style.display = 'block';
+            document.addEventListener('click', errorResult);
+        })
+    }
 }
 converter();
+
+// работа обратного порядка
+inputCurrencyOne.addEventListener('click', rev); 
+inputCurrencyTwo.addEventListener('click', revTwo);
+
+function rev() { // функция для работоспособности в обратном порядке
+    flag = true;
+};
+
+function revTwo() { // функция для работоспособности в обратном порядке
+    flag = false;
+};
+
