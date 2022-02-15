@@ -14,6 +14,7 @@ function errorResult() {
 
 let one = 'RUB';
 let two = 'USD';
+const ACTIVE_CURRENCY_COLOR = '#C6C6C6';
 let sum = inputCurrencyOne.value = 1;
 let sumTwo = inputCurrencyTwo.value;
 let flag = true;
@@ -38,7 +39,7 @@ function clickButtonCurrencyOne(event) {
     currencyOne.forEach((currencyOne) => {  
         if(currencyOne.style.background != '') {
             currencyOne.style.background = '';
-            currencyOne.style.color = '#C6C6C6';
+            currencyOne.style.color = ACTIVE_CURRENCY_COLOR;
         }
     });
     event.target.style.background = '#833AE0';
@@ -51,7 +52,7 @@ function clickButtonCurrencyTwo(event) {
     currencyTwo.forEach((currencyTwo) => {  
         if(currencyTwo.style.background != '') {
             currencyTwo.style.background = '';
-            currencyTwo.style.color = '#C6C6C6';  
+            currencyTwo.style.color = ACTIVE_CURRENCY_COLOR;  
         }
     });
     event.target.style.background = '#833AE0';
