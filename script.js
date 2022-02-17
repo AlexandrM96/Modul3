@@ -2,15 +2,8 @@ let currencyOne = document.querySelectorAll('#currencyOne'); //кнопки 'У 
 let currencyTwo = document.querySelectorAll('#currencyTwo'); //кнопки 'Хочу приобрести'
 let inputCurrencyOne = document.querySelector('#number__class__one'); // инпут 'У меня есть'  
 let inputCurrencyTwo = document.querySelector('#number__class__two'); // инпут 'Хочу приобрести'
-let parCorOne = document.querySelector('#currency__coursOne');// элемент, которыйнаходится ниже инпута 'У меня есть'
-let parCorTwo = document.querySelector('#currency__coursTwo');// элемент, которыйнаходится ниже инпута 'Хочу приобрести'
-let disp = document.querySelector('.wrapper'); //основной блок
-let error = document.querySelector('.error'); //блок ошибки
-let errorBut = document.querySelector('.button__err'); //кнопка ошибки
-
-function errorResult() {
-    location.reload(); // результат нажатия на кнопку 'перезагрузить'
-};
+let parCorOne = document.querySelector('#currency__coursOne');// элемент, который находится ниже инпута 'У меня есть'
+let parCorTwo = document.querySelector('#currency__coursTwo');// элемент, который находится ниже инпута 'Хочу приобрести'
 
 let one = 'RUB';
 let two = 'USD';
@@ -22,7 +15,7 @@ let flag = true;
 currencyOne.forEach((currencyOne) => {  
     if(currencyOne.innerText == one) {     
         currencyOne.style.background = '#833AE0';
-        currencyOne.style.color = 'white' 
+        currencyOne.style.color = 'white'; 
     }
     currencyOne.addEventListener('click', clickButtonCurrencyOne);
 });
@@ -30,14 +23,14 @@ currencyOne.forEach((currencyOne) => {
 currencyTwo.forEach((currencyTwo) => {  
     if(currencyTwo.innerText == two) {
         currencyTwo.style.background = '#833AE0';
-        currencyTwo.style.color = 'white' 
+        currencyTwo.style.color = 'white'; 
     }
     currencyTwo.addEventListener('click', clickButtonCurrencyTwo);
 });
    
 function clickButtonCurrencyOne(event) {
     currencyOne.forEach((currencyOne) => {  
-        if(currencyOne.style.background != '') {
+        if(currencyOne.style.background !== '') {
             currencyOne.style.background = '';
             currencyOne.style.color = ACTIVE_CURRENCY_COLOR;
         }
@@ -50,7 +43,7 @@ function clickButtonCurrencyOne(event) {
 
 function clickButtonCurrencyTwo(event) {
     currencyTwo.forEach((currencyTwo) => {  
-        if(currencyTwo.style.background != '') {
+        if(currencyTwo.style.background !== '') {
             currencyTwo.style.background = '';
             currencyTwo.style.color = ACTIVE_CURRENCY_COLOR;  
         }
@@ -96,9 +89,7 @@ function converter() { //работа конвертера
         inputCurrencyTwo.value = data.result.toFixed(4);
         })
         .catch((err) => {
-            disp.style.display = 'none';
-            error.style.display = 'block';
-            document.addEventListener('click', errorResult);
+            alert('Что-то пошло не так!');
    })
     } if(flag == false) {
         let url = `https://api.exchangerate.host/convert?from=${two}&to=${one}&amount=${sumTwo}`;
@@ -108,9 +99,7 @@ function converter() { //работа конвертера
          inputCurrencyOne.value = data.result.toFixed(4);
         })
         .catch((err) => {
-            disp.style.display = 'none';
-            error.style.display = 'block';
-            document.addEventListener('click', errorResult);
+            alert('Что-то пошло не так!');
         })
     }
 }

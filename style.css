@@ -172,36 +172,3 @@ input[type="number"]::-webkit-inner-spin-button {
     box-sizing: border-box;
     border-radius: 3px;
 }
-
-/* сообщение об ошибке */
-
-.error {
-    width: 400px;
-    margin: auto;
-    text-align: center;
-    background: black;
-    border: 2px solid black;
-    margin-top: 100px;
-    display: none;
-}
-
-.error .title__err {
-    font-family: 'Roboto', sans-serif;
-    color: red;
-}
-
-.error .button__err {
-    appearance: none;
-    border: 0;
-    border-radius: 5px;
-    background: #4676D7;
-    color: #fff;
-    padding: 8px 16px;
-    font-size: 16px;  
-    margin-bottom: 30px;
-}
-
-.error .button__err:hover {
-    background: #004adf;
-    cursor: pointer;
-}
